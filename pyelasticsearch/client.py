@@ -412,7 +412,7 @@ class ElasticSearch(object):
 
     @es_kwargs('routing', 'parent', 'replication', 'consistency', 'refresh')
     def delete_all(self, index, doc_type, query_params=None):
-        """
+        """delete_by_query
         Delete all documents of the given doctype from an index.
 
         :arg index: The name of the index from which to delete. ES does not
@@ -450,7 +450,7 @@ class ElasticSearch(object):
             query_params['q'] = query
             body = ''
         else:
-            body = query
+            body = {"query": query}
         return self.send_request(
             'DELETE',
             [self._concat(index), self._concat(doc_type), '_query'],
